@@ -82,7 +82,7 @@ public:
     }
 };
 
-// class collection{
+class collection{
 private:
     int size = 0;
     Option** _A;
