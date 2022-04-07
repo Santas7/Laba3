@@ -32,7 +32,7 @@ public:
     void volume() override {
         _volume = pow(_side, 3);
     }
-    void print() override {
+    void print() const override  {
         cout << "Название фигуры: Куб" << endl << "Площадь поверхности: " << _area << endl << "Объем: " << _volume << endl;
     }
     explicit Cube(double value) : _side(value)
@@ -51,7 +51,7 @@ public:
     void volume() override {
         _volume = (4/3)*pi*pow(_radius, 3);
     }
-    void print() override {
+    void print() const override  {
         cout << "Название фигуры: Шар" << endl << "Площадь поверхности: " << _area << endl << "Объем: " << _volume << endl;
     }
     explicit Sphere(double value) : _radius(value)
@@ -74,7 +74,7 @@ public:
     void volume() override {
         _volume = (1/3)*pi*pow(_radius, 2)*_height;
     }
-    void print() override {
+    void print() const override  {
         cout << "Название фигуры: Конус" << endl << "Площадь поверхности: " << _area << endl << "Объем: " << _volume << endl;
     }
     explicit Cone(double value) : _radius(value), _length(value), _height(value)
