@@ -1,8 +1,12 @@
+/*
+Лабораторная работа номер 3 вариант 17 (2)
+Панюшкин Андрей
+6113
+*/
+
 #include <iostream>
 #include <windows.h>
 #include <cmath>
-
-
 
 using namespace std;
 
@@ -78,7 +82,18 @@ public:
     }
 };
 
-// class collection{..};
+// class collection{
+private:
+    int size = 0;
+    Option** _A;
+public:
+
+    void add(Option* N) {
+        A = new option[size];
+        A[size + 1] = N;
+    }
+
+};
 
 
 int main()
