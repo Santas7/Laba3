@@ -115,6 +115,27 @@ public:
         N = NULL;
         _A = (Figure**)realloc(_A, N * sizeof(Figure*));
     }
+    int randomValueInt(int min, int max) {
+        srand(time(NULL));
+        return (min + rand() % (max - min + 1));
+    }
+    double randomValueDouble(double min, double max) {
+        srand(time(NULL));
+        return ((double)(rand()) / RAND_MAX * (max - min) + min);
+    }
+    Figure* funcRand() {
+        int value = randomValueInt(0, 2);
+        if (value == 0) {
+            return new Cube(randomValueDouble(-99999999, 99999999));
+        }
+        else if (value == 1) {
+            return new Sphere(randomValueDouble(-99999999, 99999999));
+        }
+        else if (value == 2) {
+            return new Cone(randomValueDouble(-99999999, 99999999), randomValueDouble(-99999999, 99999999), randomValueDouble(-99999999, 99999999));
+        }
+        else cout << "Error!" << endl;
+    }
 };
 
 int Menu() {
@@ -123,11 +144,13 @@ int Menu() {
         return key;
     return 0;
 }
+
 int main()
 {
     //setlocale(LC_ALL, "Rus");
     double a = 0, b = 0, c = 0;
     collection* coll = new collection();
+    cout << "[1] Add Cube" << endl << "[2] Add Sphere" << endl << "[3] Add Cone" << endl << "[4] Output all list figures" << endl << "[5] Inserting a randomly generated object at the end of a collection" << endl << "[6] Deleting one object by index" << endl << "[7] Deleting all objects" << endl << "[BackSpace] Exit" << endl << "-->";
     while (true) {
         int commandKey = Menu();
         if (commandKey == 8) {
@@ -139,7 +162,7 @@ int main()
             cout << "Input side--> "; cin >> a; 
             coll->Add(new Cube(a));
             system("cls");
-            cout << "Added! [0] Back -->";
+            cout << "Added! [0] Back-->";
             break;
         case 50: 
             system("cls");
@@ -147,7 +170,7 @@ int main()
             cout << "Input radius--> "; cin >> a; 
             coll->Add(new Sphere(a));
             system("cls");
-            cout << "Added! [0] Back -->";
+            cout << "Added! [0] Back-->";
             break;
         case 51:
             system("cls");
@@ -156,7 +179,7 @@ int main()
             cout << "Input height--> "; cin >> c; 
             coll->Add(new Cone(a, b, c));
             system("cls");
-            cout << "Added! [0] Back -->";
+            cout << "Added! [0] Back-->";
             break;
         case 52:
             system("cls");
@@ -164,7 +187,8 @@ int main()
             break;
         case 53:
             system("cls");
-            cout << "Random";
+            coll->Add(coll->funcRand());
+            cout << "Object is Generated! [0] Back-->";
             break;
         case 54:
             system("cls");
