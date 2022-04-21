@@ -119,7 +119,7 @@ public:
 
 int Menu() {
     int key = _getch();
-    if (key == 49 || key == 50 || key == 51 || key == 52 || key == 53 || key == 54 || key == 55)
+    if (key == 49 || key == 50 || key == 51 || key == 52 || key == 53 || key == 54 || key == 55 || key == 8)
         return key;
     return 0;
 }
@@ -130,6 +130,9 @@ int main()
     collection* coll = new collection();
     while (true) {
         int commandKey = Menu();
+        if (commandKey == 8) {
+            break;
+        }
         switch (commandKey) {
         case 49: 
             system("cls");
@@ -177,7 +180,7 @@ int main()
             break;
         case 0:
             system("cls");
-            cout << "[1] Add Cube" << endl << "[2] Add Sphere" << endl << "[3] Add Cone" << endl << "[4] Output all list figures" << endl << "[5] Inserting a randomly generated object at the end of a collection" << endl << "[6] Deleting one object by index" << endl << "[7] Deleting all objects" << endl << "-->";
+            cout << "[1] Add Cube" << endl << "[2] Add Sphere" << endl << "[3] Add Cone" << endl << "[4] Output all list figures" << endl << "[5] Inserting a randomly generated object at the end of a collection" << endl << "[6] Deleting one object by index" << endl << "[7] Deleting all objects" << endl << "[BackSpace] Exit" << endl << "-->";
             break;
         default:
             system("cls");
