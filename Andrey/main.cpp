@@ -3,126 +3,152 @@
 Панюшкин Андрей
 6113
 */
-
+#define _USE_MATH_DEFINES
 #include <iostream>
-#include <windows.h>
 #include <cmath>
+#include <conio.h>
+#include <windows.h>
+#include <time.h>
 
 using namespace std;
 
-class Option{
-protected:
-    static double _area, _volume;
-    const double pi = 3.1415926535;
+class Figure {
 public:
-    virtual void area() = 0;
-    virtual void volume() = 0;
-    virtual void print() const = 0;
+    virtual double area() const = 0 {};
+    virtual double volume() const = 0 {};
+    virtual string info() const = 0 {};
+    virtual void print() const = 0 {};
 };
 
-class Cube : public Option{
-private:
+class Cube : public Figure {
+protected:
     double _side;
 public:
-    void setSide(double value){_side = value;}
-    double getSide(){return _side;}
-    void area() override {
-        _area = 6*pow(_side, 2);
+    double area() const override {
+        return 6 * pow(_side, 2);
     }
-    void volume() override {
-        _volume = pow(_side, 3);
+    double volume() const override {
+        return pow(_side, 3);
     }
-    void print() const override  {
-        cout << "Название фигуры: Куб" << endl << "Площадь поверхности: " << _area << endl << "Объем: " << _volume << endl;
+    string info() const override {
+        return "Cube";
     }
-    explicit Cube(double value) : _side(value)
+    void print() const override {
+        cout << "Name Figure: " << info() << endl << "Side: " << _side << endl;
+    }
+    explicit Cube(double side = 0) :_side(side)
     {
     }
 };
-class Sphere : public Option{
-private:
+class Sphere : public Figure {
+protected:
     double _radius;
 public:
-    void setSide(double value){_radius = value;}
-    double getSide(){return _radius;}
-    void area() override {
-        _area = 4*pi*pow(_radius, 2);
+    double area() const override {
+        return 4 * M_PI * pow(_radius, 2);
     }
-    void volume() override {
-        _volume = (4/3)*pi*pow(_radius, 3);
+    double volume() const override {
+        return (4 / 3) * M_PI * pow(_radius, 3);
     }
-    void print() const override  {
-        cout << "Название фигуры: Шар" << endl << "Площадь поверхности: " << _area << endl << "Объем: " << _volume << endl;
+    string info() const override {
+        return "Sphere";
     }
-    explicit Sphere(double value) : _radius(value)
+    void print() const override {
+        cout << "Name Figure: " << info() << endl << "Radius: " << _radius << endl;
+    }
+    explicit Sphere(double radius = 0) :_radius(radius)
     {
     }
 };
-class Cone : public Option{
-private:
+class Cone : public Figure {
+protected:
     double _radius, _length, _height;
 public:
-    void setSide(double value){_radius = value;}
-    double getSide(){return _radius;}
-    void setLength(double value){_length = value;}
-    double getLength(){return _length;}
-    void setHeight(double value){_height = value;}
-    double getHeight(){return _height;}
-    void area() override {
-        _area = pi*_radius*(_radius + _length);
+    double area() const override {
+        return M_PI * _radius * (_radius + _length);
     }
-    void volume() override {
-        _volume = (1/3)*pi*pow(_radius, 2)*_height;
+    double volume() const override {
+        return (1 / 3) * M_PI * pow(_radius, 2) * _height;
     }
-    void print() const override  {
-        cout << "Название фигуры: Конус" << endl << "Площадь поверхности: " << _area << endl << "Объем: " << _volume << endl;
+    string info() const override {
+        return "Cone";
     }
-    explicit Cone(double value) : _radius(value), _length(value), _height(value)
+    void print() const override {
+        cout << "Name Figure: " << info() << endl << "Radius: " << _radius << endl << "Length: " << _length << endl << "Height: " << _height << endl;
+    }
+    explicit Cone(double radius = 0, double length = 0, double height = 0) :_radius(radius), _length(length), _height(height)
     {
     }
 };
 
-class collection{
+class collection {
 private:
-    int size = 0;
-    Option** _A;
+    int N;
+    Figure** _A;
 public:
-
-    void add(Option* N) {
-        A = new option[size];
-        A[size + 1] = N;
+    void ADD(Figure* obj) {
+        ++N;
+        _A = (Figure**)realloc(_A, N * sizeof(Figure*));
+        _A[N - 1] = obj;
     }
-
 };
-
-
+void Oper(Figure** _A, int N) {
+    for (int i = 0; i <= N; ++i) {
+        _A[i]->print();
+        cout << "Surface area: " << _A[i]->area() << endl << "Volume: " << _A[i]->volume() << endl << endl;
+    }
+    cout << "Back-->";
+}
+int Menu() {
+    int key = _getch();
+    if (key == 49 || key == 50 || key == 51 || key == 52)
+        return key;
+    return 0;
+}
 int main()
 {
-    SetConsoleOutputCP(CP_UTF8); //Задает выходную кодовую страницу,
-    double a;
-    Option *object;
-
-    // меню программы
-    cout << "[1] Добавить Куб" << endl << "[2] Добавить Шар" << endl << "[3] Добавить Конус" << endl << "-->";
-    while(true){
-        int commandKey; cin >> commandKey;
-        switch(commandKey){
-            case 1:
-                system("cls");
-                cout << "Куб";
-                break;
-            case 2:
-                system("cls");
-                cout << "Шар";
-                break;
-            case 3:
-                system("cls");
-                cout << "Конус";
-                break;
-            default:
-                system("cls");
-                cout << "Ошибка" << endl;
-                break;
+    //setlocale(LC_ALL, "Rus");
+    double a = 0, b = 0, c = 0;
+    collection* coll = new collection();
+    while (true) {
+        int commandKey = Menu();
+        switch (commandKey) {
+        case 49:
+            system("cls");
+            cout << "Input side--> "; cin >> a; 
+            coll->ADD(new Cube(a));
+            system("cls");
+            cout << "Added! [0] Back -->";
+            break;
+        case 50:
+            system("cls");
+            Figure* _A[2];
+            cout << "Input radius--> "; cin >> a; 
+            coll->ADD(new Sphere(a));
+            system("cls");
+            cout << "Added! [0] Back -->";
+            break;
+        case 51:
+            system("cls");
+            cout << "Input radius--> "; cin >> a; 
+            cout << "Input length--> "; cin >> b; 
+            cout << "Input height--> "; cin >> c; 
+            coll->ADD(new Cone(a, b, c));
+            system("cls");
+            cout << "Added! [0] Back -->";
+            break;
+        case 52:
+            system("cls");
+            //Oper(_A, N);
+            break;
+        case 0:
+            system("cls");
+            cout << "[1] Add Cube" << endl << "[2] Add Sphere" << endl << "[3] Add Cone" << endl << "[4] Output all list figures" << endl << "-->";
+            break;
+        default:
+            system("cls");
+            cout << "Error!" << endl;
+            break;
         }
     }
     return 0;
