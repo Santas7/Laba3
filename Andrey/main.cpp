@@ -153,9 +153,8 @@ int main()
     cout << "[1] Add Cube" << endl << "[2] Add Sphere" << endl << "[3] Add Cone" << endl << "[4] Output all list figures" << endl << "[5] Inserting a randomly generated object at the end of a collection" << endl << "[6] Deleting one object by index" << endl << "[7] Deleting all objects" << endl << "[BackSpace] Exit" << endl << "-->";
     while (true) {
         int commandKey = Menu();
-        if (commandKey == 8) {
+        if (commandKey == 8)
             break;
-        }
         switch (commandKey) {
         case 49: 
             system("cls");
@@ -166,7 +165,6 @@ int main()
             break;
         case 50: 
             system("cls");
-            Figure* _A[2];
             cout << "Input radius--> "; cin >> a; 
             coll->Add(new Sphere(a));
             system("cls");
