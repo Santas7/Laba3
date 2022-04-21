@@ -102,11 +102,18 @@ public:
     }
     void del(int index) {
         delete _A[index];
+        for (int i = index; i < N; ++i) {
+            _A[index] = _A[index + 1];
+        }
+        --N;
+        _A = (Figure**)realloc(_A, N * sizeof(Figure*));
     }
     void delAll() {
-        for (int i = 9; i < N; ++i) {
+        for (int i = 0; i < N; ++i) {
             delete _A[i];
         }
+        N = NULL;
+        _A = (Figure**)realloc(_A, N * sizeof(Figure*));
     }
 };
 
