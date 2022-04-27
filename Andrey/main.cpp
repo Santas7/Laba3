@@ -158,23 +158,28 @@ int main()
         switch (commandKey) {
         case 49: 
             system("cls");
-            cout << "Input side--> "; cin >> a; 
+            cout << "Input side--> "; 
+            cin >> a; 
             coll->Add(new Cube(a));
             system("cls");
             cout << "Added! [0] Back-->";
             break;
         case 50: 
             system("cls");
-            cout << "Input radius--> "; cin >> a; 
+            cout << "Input radius--> "; 
+            cin >> a; 
             coll->Add(new Sphere(a));
             system("cls");
             cout << "Added! [0] Back-->";
             break;
         case 51:
             system("cls");
-            cout << "Input radius--> "; cin >> a; 
-            cout << "Input length--> "; cin >> b; 
-            cout << "Input height--> "; cin >> c; 
+            cout << "Input radius--> "; 
+            cin >> a; 
+            cout << "Input length--> "; 
+            cin >> b; 
+            cout << "Input height--> "; 
+            cin >> c; 
             coll->Add(new Cone(a, b, c));
             system("cls");
             cout << "Added! [0] Back-->";
@@ -190,7 +195,8 @@ int main()
             break;
         case 54:
             system("cls");
-            cout << "Input index value--> "; cin >> a;
+            cout << "Input index value--> "; 
+            cin >> a;
             coll->del(a);
             system("cls");
             cout << "Object is Deleted! [0] Back-->";
